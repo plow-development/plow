@@ -1,6 +1,48 @@
-
 class UserModel {
-  final String name;
+  final int id;
+  final String firstname;
+  final String username;
+  final String hashedPassword;
+  final String email;
+  final String avatar;
+  final String lastname;
+  final DateTime birthday;
+  final String type;
+  final int money;
 
-  UserModel({required this.name});
+  UserModel({
+    required this.id,
+    required this.firstname,
+    required this.username,
+    required this.hashedPassword,
+    required this.email,
+    required this.avatar,
+    required this.lastname,
+    required this.birthday,
+    required this.type,
+    required this.money,
+  });
 }
+
+class UserSportModel {
+  final int userId;
+  final int sportId;
+
+  UserSportModel({
+    required this.userId,
+    required this.sportId,
+
+  });
+}
+
+class TeamsUsersModel {
+  final int teamId;
+  final int userId;
+
+  TeamsUsersModel({
+    required this.teamId,
+    required this.userId,
+
+  });
+}
+
