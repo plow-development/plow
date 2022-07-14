@@ -26,9 +26,14 @@ class MyWidget extends StatelessWidget {
           alignment: Alignment.center,
           height: 250,
         ),
-        Padding(
-          padding: EdgeInsets.only(right:70),
-          child: Text('Введите номер телефона'),
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(horizontal: 70),
+          child: Text(
+            'Введите номер телефона',
+            textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 15, color: Colors.black),
+          ),
         ),
         Container(
           alignment: Alignment.center,
