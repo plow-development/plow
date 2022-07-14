@@ -5,7 +5,7 @@ class LiveScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('loh');
+    return Center(child: Text('live'));
   }
 
 }

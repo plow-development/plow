@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:plow/screens/HomeScreen.dart';
 import 'package:plow/screens/events/CalendarScreen.dart';
 import 'package:plow/screens/events/MapScreen.dart';
 import 'package:plow/screens/main/LiveScreen.dart';
+import 'package:plow/screens/main/MyNewsScreen.dart';
 import 'package:plow/screens/main/NewsScreen.dart';
 import 'package:plow/screens/profile/CabinetScreen.dart';
 import 'package:plow/screens/profile/ProfileScreen.dart';
@@ -15,6 +15,7 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 enum Screens {
   news,
+  my_news,
   live,
   map,
   profile,
@@ -61,25 +62,42 @@ class _MainScreenState extends State<MainScreen> {
     Widget body = NewsScreen();
     String appBarTitle = 'Главная';
     List<Widget> actions = [];
+    TabBar? bottom;
+    double height = 65.0;
 
     switch (_screen) {
       case Screens.news:
-        body = NewsScreen();
+        body = _tabView();
+        bottom = _tabBar();
+        height = 120.0;
+        appBarTitle = 'Главная';
+        break;
+      case Screens.my_news:
+        body = _tabView();
+        bottom = _tabBar();
+        height = 120.0;
         appBarTitle = 'Главная';
         break;
       case Screens.live:
-        body = LiveScreen();
+        body = _tabView();
+        bottom = _tabBar();
+        height = 120.0;
         appBarTitle = 'Главная';
         break;
       case Screens.map:
         body = MapScreen();
         appBarTitle = 'Карта';
-        actions.add(IconButton(onPressed: () {
-          setState(() {
-            _isMap = false;
-            _screen = Screens.calendar;
-          });
-        }, icon: Icon(Icons.calendar_month, size: 30.0,)));
+        actions.add(IconButton(
+            onPressed: () {
+              setState(() {
+                _isMap = false;
+                _screen = Screens.calendar;
+              });
+            },
+            icon: Icon(
+              Icons.calendar_month,
+              size: 30.0,
+            )));
         break;
       case Screens.profile:
         body = ProfileScreen();
@@ -100,12 +118,17 @@ class _MainScreenState extends State<MainScreen> {
       case Screens.calendar:
         body = CalendarScreen();
         appBarTitle = 'Календарь';
-        actions.add(IconButton(onPressed: () {
-          setState(() {
-            _isMap = true;
-            _screen = Screens.map;
-          });
-        }, icon: Icon(Icons.map_outlined, size: 30.0,)));
+        actions.add(IconButton(
+            onPressed: () {
+              setState(() {
+                _isMap = true;
+                _screen = Screens.map;
+              });
+            },
+            icon: Icon(
+              Icons.map_outlined,
+              size: 30.0,
+            )));
         break;
       case Screens.cabinet:
         body = CabinetScreen();
@@ -117,15 +140,45 @@ class _MainScreenState extends State<MainScreen> {
         break;
     }
 
-    actions.add(SizedBox(width: 12.0,));
+    actions.add(SizedBox(
+      width: 12.0,
+    ));
 
-    return Scaffold(
-      appBar: _appBar(title: appBarTitle, actions: actions),
-      bottomNavigationBar: _bottomNavigationBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: body,
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: _appBar(title: appBarTitle, actions: actions, bottom: bottom, height: height),
+        bottomNavigationBar: _bottomNavigationBar(),
+        body: body,
       ),
+    );
+  }
+
+  TabBar _tabBar() {
+    return TabBar(
+      indicatorSize: TabBarIndicatorSize.label,
+      labelColor: Colors.black,
+      labelStyle: TextStyle(
+        fontSize: 15.0,
+        fontWeight: FontWeight.w600
+      ),
+      indicatorWeight: 3.0,
+      isScrollable: true,
+      tabs: [
+        Tab(text: 'Новости'),
+        Tab(text: 'Для вас'),
+        Tab(text: 'Прямые трансляции'),
+      ],
+    );
+  }
+
+  Widget _tabView() {
+    return TabBarView(
+      children: [
+        NewsScreen(),
+        MyNewsScreen(),
+        LiveScreen(),
+      ],
     );
   }
 
@@ -155,17 +208,14 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _bottomNavigationBar() {
     return Container(
-      decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 2,
-              offset: Offset(0, 1), // changes position of shadow
-            ),
-          ],
-        color: Colors.white
-      ),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.5),
+          spreadRadius: 2,
+          blurRadius: 2,
+          offset: Offset(0, 1), // changes position of shadow
+        ),
+      ], color: Colors.white),
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: SalomonBottomBar(
         currentIndex: _selectedIndex,
@@ -180,30 +230,39 @@ class _MainScreenState extends State<MainScreen> {
               icon: Icon(Icons.event), title: Text('Мероприятия')),
           SalomonBottomBarItem(
               icon: Icon(Icons.leaderboard), title: Text('Рейтинг')),
-          SalomonBottomBarItem(icon: Icon(Icons.person), title: Text('Кабинет')),
+          SalomonBottomBarItem(
+              icon: Icon(Icons.person), title: Text('Кабинет')),
         ],
       ),
     );
   }
 
-  PreferredSize _appBar({required String title, required List<Widget> actions}) {
+  PreferredSize _appBar(
+      {required String title,
+      required List<Widget> actions,
+      required TabBar? bottom,
+      required double height}) {
     return PreferredSize(
-      preferredSize: Size.fromHeight(65.0),
+      preferredSize: Size.fromHeight(height),
       child: Column(
         children: <Widget>[
           SizedBox(
             height: 8.0,
           ),
-          AppBar(
-            centerTitle: false,
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
-            elevation: 2.0,
-            shadowColor: Colors.grey.withOpacity(0.5),
-            actions: actions,
-            title: Text(
-              title,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26.0),
+          Expanded(
+            child: AppBar(
+              centerTitle: false,
+              automaticallyImplyLeading: false,
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.black,
+              elevation: 2.0,
+              shadowColor: Colors.grey.withOpacity(0.5),
+              actions: actions,
+              bottom: bottom,
+              title: Text(
+                title,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26.0),
+              ),
             ),
           ),
         ],
