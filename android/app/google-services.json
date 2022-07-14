@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "378227560556",
+    "project_id": "plow-80fc7",
+    "storage_bucket": "plow-80fc7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378227560556:android:b7a76933ffbada14e30849",
+        "android_client_info": {
+          "package_name": "ru.plow.plow.plow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378227560556-c7sqs136rdi68084bi4baiaqt0oq2g36.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.plow.plow.plow",
+            "certificate_hash": "a0c4059537e532f8791882a369938572e70e0c85"
+          }
+        },
+        {
+          "client_id": "378227560556-642enq481jc1rk6a4pvui672bor6r763.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJR7UobDKIaJou_w0DjPVfwqYIC_Qlo30"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378227560556-642enq481jc1rk6a4pvui672bor6r763.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
