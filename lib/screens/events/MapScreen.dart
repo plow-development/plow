@@ -5,7 +5,7 @@ class MapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('loh');
+    return Text('map');
   }
 
 }

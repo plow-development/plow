@@ -54,11 +54,13 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   Screens _screen = Screens.news;
+  bool _isMap = false;
 
   @override
   Widget build(BuildContext context) {
     Widget body = NewsScreen();
     String appBarTitle = 'Главная';
+    List<Widget> actions = [];
 
     switch (_screen) {
       case Screens.news:
@@ -72,6 +74,12 @@ class _MainScreenState extends State<MainScreen> {
       case Screens.map:
         body = MapScreen();
         appBarTitle = 'Карта';
+        actions.add(IconButton(onPressed: () {
+          setState(() {
+            _isMap = false;
+            _screen = Screens.calendar;
+          });
+        }, icon: Icon(Icons.calendar_month, size: 30.0,)));
         break;
       case Screens.profile:
         body = ProfileScreen();
@@ -92,6 +100,12 @@ class _MainScreenState extends State<MainScreen> {
       case Screens.calendar:
         body = CalendarScreen();
         appBarTitle = 'Календарь';
+        actions.add(IconButton(onPressed: () {
+          setState(() {
+            _isMap = true;
+            _screen = Screens.map;
+          });
+        }, icon: Icon(Icons.map_outlined, size: 30.0,)));
         break;
       case Screens.cabinet:
         body = CabinetScreen();
@@ -103,8 +117,10 @@ class _MainScreenState extends State<MainScreen> {
         break;
     }
 
+    actions.add(SizedBox(width: 12.0,));
+
     return Scaffold(
-      appBar: _appBar(title: appBarTitle),
+      appBar: _appBar(title: appBarTitle, actions: actions),
       bottomNavigationBar: _bottomNavigationBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -121,7 +137,11 @@ class _MainScreenState extends State<MainScreen> {
           _screen = Screens.news;
           break;
         case 1:
-          _screen = Screens.calendar;
+          if (_isMap) {
+            _screen = Screens.map;
+          } else {
+            _screen = Screens.calendar;
+          }
           break;
         case 2:
           _screen = Screens.stat;
@@ -166,26 +186,27 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  PreferredSize _appBar({required String title}) {
+  PreferredSize _appBar({required String title, required List<Widget> actions}) {
     return PreferredSize(
       preferredSize: Size.fromHeight(65.0),
-      child: AppBar(
-        centerTitle: false,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 2.0,
-        shadowColor: Colors.grey.withOpacity(0.5),
-        title: Column(
-          children: [
-            SizedBox(
-              height: 16.0,
-            ),
-            Text(
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 8.0,
+          ),
+          AppBar(
+            centerTitle: false,
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            elevation: 2.0,
+            shadowColor: Colors.grey.withOpacity(0.5),
+            actions: actions,
+            title: Text(
               title,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26.0),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
