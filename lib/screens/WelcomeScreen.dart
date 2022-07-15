@@ -34,6 +34,11 @@ class MyWidget extends StatelessWidget {
             height: 45.0,
             child: ElevatedButton(
                 style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                  ),
                   backgroundColor:
                   MaterialStateProperty.all<Color>(Color(0xff3F8FD2)),
                 ),
@@ -53,6 +58,11 @@ class MyWidget extends StatelessWidget {
             height: 45.0,
             child: ElevatedButton(
                 style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                  ),
                   backgroundColor:
                   MaterialStateProperty.all<Color>(Color(0xff3F8FD2)),
                 ),
