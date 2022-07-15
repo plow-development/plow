@@ -4,8 +4,13 @@ import 'package:plow/screens/profile/SettingsScreen.dart';
 import 'package:plow/services/ColorService.dart';
 import 'package:styled_widget/styled_widget.dart';
 
+import '../../main.dart';
+
 class CabinetScreen extends StatelessWidget {
-  const CabinetScreen({Key? key}) : super(key: key);
+  final Function callback;
+
+  const CabinetScreen({Key? key, required this.callback}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class CabinetScreen extends StatelessWidget {
         SizedBox(
           height: 16.0,
         ),
-        ActionsRow(context: context,),
+        ActionsRow(context: context, callback: callback,),
       ],
     );
   }
@@ -43,7 +48,7 @@ class TeamCard extends StatelessWidget {
           'Плов',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 20,
+            fontSize: 26,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -51,7 +56,7 @@ class TeamCard extends StatelessWidget {
           'Футбольная команда',
           style: TextStyle(
               color: Colors.white.withOpacity(0.6),
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: FontWeight.w300),
         ),
       ].toColumn(crossAxisAlignment: CrossAxisAlignment.start),
@@ -70,14 +75,14 @@ class TeamCard extends StatelessWidget {
 
   Widget _buildUserStatsItem(String value, String text) => <Widget>[
         Text(value)
-            .fontSize(22)
+            .fontSize(24)
             .textColor(Colors.white)
             .fontWeight(FontWeight.w600)
             .padding(bottom: 4),
         Text(text)
             .fontWeight(FontWeight.w300)
             .textColor(Colors.white.withOpacity(0.6))
-            .fontSize(12),
+            .fontSize(14),
       ].toColumn();
 
   @override
@@ -108,18 +113,18 @@ class UserCard extends StatelessWidget {
           .padding(right: 16),
       <Widget>[
         Text(
-          'Владислав Осин',
+          'Рома Саратовский',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 20,
+            fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          'Футбол, баскетбол',
+          'Футбол',
           style: TextStyle(
               color: Colors.white.withOpacity(0.6),
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: FontWeight.w300),
         ),
       ].toColumn(crossAxisAlignment: CrossAxisAlignment.start),
@@ -138,14 +143,14 @@ class UserCard extends StatelessWidget {
 
   Widget _buildUserStatsItem(String value, String text) => <Widget>[
         Text(value)
-            .fontSize(22)
+            .fontSize(24)
             .textColor(Colors.white)
             .fontWeight(FontWeight.w600)
             .padding(bottom: 4),
         Text(text)
             .fontWeight(FontWeight.w300)
             .textColor(Colors.white.withOpacity(0.6))
-            .fontSize(12),
+            .fontSize(14),
       ].toColumn();
 
   @override
@@ -168,10 +173,11 @@ class UserCard extends StatelessWidget {
 
 class ActionsRow extends StatelessWidget {
   final BuildContext context;
-  const ActionsRow({Key? key, required this.context}) : super(key: key);
+  final Function callback;
+  const ActionsRow({Key? key, required this.context, required this.callback}) : super(key: key);
 
-  Widget _buildActionItem(String name, IconData icon) {
-    final Widget actionIcon = Icon(icon, size: 23, color: Color(0xFF42526F))
+  Widget _buildActionItem(String name, IconData icon, Screens screen) {
+    final Widget actionIcon = Icon(icon, size: 25, color: Color(0xFF42526F))
         .alignment(Alignment.center)
         .ripple()
         .constrained(width: 50, height: 50)
@@ -184,12 +190,13 @@ class ActionsRow extends StatelessWidget {
       style: TextStyle(
         color: Colors.black.withOpacity(0.8),
         fontWeight: FontWeight.w500,
-        fontSize: 12,
+        fontSize: 16,
       ),
     );
 
     return GestureDetector(
       onTap: () {
+        callback(screen);
       },
       child: <Widget>[
         actionIcon,
@@ -200,9 +207,9 @@ class ActionsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => <Widget>[
-    _buildActionItem('Профиль', Icons.person),
-    _buildActionItem('Команда', Icons.group),
-    _buildActionItem('Магазин', Icons.attach_money),
-    _buildActionItem('Настройки', Icons.settings),
+    _buildActionItem('Профиль', Icons.person, Screens.profile),
+    _buildActionItem('Команды', Icons.group, Screens.team),
+    _buildActionItem('Магазин', Icons.attach_money, Screens.shop),
+    _buildActionItem('Настройки', Icons.settings, Screens.settings),
   ].toRow(mainAxisAlignment: MainAxisAlignment.spaceAround);
 }

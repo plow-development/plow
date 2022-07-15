@@ -3,7 +3,6 @@ class BroadcastsModel {
   final String title;
   final String description;
   final String preview;
-  final int eventId;
   final String link;
 
   BroadcastsModel({
@@ -11,12 +10,10 @@ class BroadcastsModel {
     required this.title,
     required this.description,
     required this.preview,
-    required this.eventId,
     required this.link,
   });
   factory BroadcastsModel.fromJson(Map<String, dynamic> json) {
-    return BroadcastsModel(id: json["id"], title: json["title"],
-        description: json["description"], preview: json["preview"],
-        eventId: json["eventId"], link: json["link"]);
+    return BroadcastsModel(id: json["broadcast_id"], title: json["title"],
+        description: json["description"], preview: json["preview"], link: json["link"]);
   }
 }

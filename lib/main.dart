@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:plow/screens/events/CalendarScreen.dart';
 import 'package:plow/screens/events/MapScreen.dart';
@@ -63,6 +64,13 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+    initializeDateFormatting('ru');
+  }
+
+  _callback(Screens screen) {
+    setState(() {
+      _screen = screen;
+    });
   }
 
   @override
@@ -70,6 +78,7 @@ class _MainScreenState extends State<MainScreen> {
     Widget body = NewsScreen();
     String appBarTitle = 'Главная';
     List<Widget> actions = [];
+    bool _isBack = false;
     TabBar? bottom;
     double height = 65.0;
 
@@ -110,18 +119,22 @@ class _MainScreenState extends State<MainScreen> {
       case Screens.profile:
         body = ProfileScreen();
         appBarTitle = 'Профиль';
+        _isBack = true;
         break;
       case Screens.settings:
         body = SettingsScreen();
         appBarTitle = 'Настройки';
+        _isBack = true;
         break;
       case Screens.shop:
         body = ShopScreen();
         appBarTitle = 'Магазин';
+        _isBack = true;
         break;
       case Screens.team:
         body = TeamScreen();
         appBarTitle = 'Команды';
+        _isBack = true;
         break;
       case Screens.calendar:
         body = CalendarScreen();
@@ -139,7 +152,9 @@ class _MainScreenState extends State<MainScreen> {
             )));
         break;
       case Screens.cabinet:
-        body = CabinetScreen();
+        body = CabinetScreen(
+          callback: _callback,
+        );
         appBarTitle = 'Кабинет';
         break;
       case Screens.stat:
@@ -155,7 +170,12 @@ class _MainScreenState extends State<MainScreen> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: _appBar(title: appBarTitle, actions: actions, bottom: bottom, height: height),
+        appBar: _appBar(
+            title: appBarTitle,
+            actions: actions,
+            bottom: bottom,
+            isBack: _isBack,
+            height: height),
         bottomNavigationBar: _bottomNavigationBar(),
         body: body,
       ),
@@ -166,10 +186,7 @@ class _MainScreenState extends State<MainScreen> {
     return TabBar(
       indicatorSize: TabBarIndicatorSize.label,
       labelColor: Colors.black,
-      labelStyle: TextStyle(
-        fontSize: 15.0,
-        fontWeight: FontWeight.w600
-      ),
+      labelStyle: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600),
       indicatorWeight: 3.0,
       isScrollable: true,
       tabs: [
@@ -232,14 +249,29 @@ class _MainScreenState extends State<MainScreen> {
         items: <SalomonBottomBarItem>[
           SalomonBottomBarItem(
             icon: Icon(Icons.home),
-            title: Text('Главная'),
+            title: Text(
+              'Главная',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
           ),
           SalomonBottomBarItem(
-              icon: Icon(Icons.event), title: Text('Мероприятия')),
+              icon: Icon(Icons.event),
+              title: Text(
+                'Мероприятия',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              )),
           SalomonBottomBarItem(
-              icon: Icon(Icons.leaderboard), title: Text('Рейтинг')),
+              icon: Icon(Icons.leaderboard),
+              title: Text(
+                'Рейтинг',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              )),
           SalomonBottomBarItem(
-              icon: Icon(Icons.person), title: Text('Кабинет')),
+              icon: Icon(Icons.person),
+              title: Text(
+                'Кабинет',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              )),
         ],
       ),
     );
@@ -249,6 +281,7 @@ class _MainScreenState extends State<MainScreen> {
       {required String title,
       required List<Widget> actions,
       required TabBar? bottom,
+      required bool isBack,
       required double height}) {
     return PreferredSize(
       preferredSize: Size.fromHeight(height),
@@ -259,6 +292,16 @@ class _MainScreenState extends State<MainScreen> {
           ),
           Expanded(
             child: AppBar(
+              leading: isBack
+                  ? IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _screen = Screens.cabinet;
+                        });
+                      },
+                      icon: Icon(Icons.arrow_back_ios),
+                    )
+                  : null,
               centerTitle: false,
               automaticallyImplyLeading: false,
               backgroundColor: Colors.white,
@@ -269,7 +312,7 @@ class _MainScreenState extends State<MainScreen> {
               bottom: bottom,
               title: Text(
                 title,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26.0),
+                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 26.0),
               ),
             ),
           ),

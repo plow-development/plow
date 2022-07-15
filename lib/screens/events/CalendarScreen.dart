@@ -1,5 +1,6 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:plow/models/EventsModels.dart';
 import 'package:plow/services/ApiService.dart';
 import 'package:plow/services/ColorService.dart';
 
@@ -35,71 +36,92 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ),
         Container(
           color: Colors.white,
-          height: 16.0,
+          height: 8.0,
         ),
         Expanded(
-          child: ListView.separated(
-            padding: const EdgeInsets.all(16.0),
-            itemCount: 5,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(.1),
-                          blurRadius: 1.0,
-                          spreadRadius: 1.0,
-                          offset: Offset(1, 2))
-                    ]),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10.0),
-                            topRight: Radius.circular(10.0)),
-                        child: Image.network(
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/InageMinkanKoukuuKinenkan20101223.jpg/1200px-InageMinkanKoukuuKinenkan20101223.jpg')),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
+          child: FutureBuilder<List<EventsModel>>(
+            future: ApiService().getEventsByDateTime(dateTime: _dateTime),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.separated(
+                  padding: const EdgeInsets.all(16.0),
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(.1),
+                                blurRadius: 1.0,
+                                spreadRadius: 1.0,
+                                offset: Offset(1, 2))
+                          ]),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Icon(Icons.sports_soccer, size: 15,),
-                              SizedBox(
-                                width: 4.0,
-                              ),
-                              Text('Футбол', style: TextStyle(fontWeight: FontWeight.w300, fontSize: 12.0)),
-                            ],
+                          ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10.0),
+                                  topRight: Radius.circular(10.0)),
+                              child: Image.network(
+                                  snapshot.data![index].preview)),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Icon(Icons.sports_basketball, size: 15,),
+                                    SizedBox(
+                                      width: 4.0,
+                                    ),
+                                    Text('Футбол', style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 16.0)),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 2.0,
+                                ),
+                                Text(snapshot.data![index].name,
+                                  style: TextStyle(fontWeight: FontWeight.bold,
+                                      fontSize: 22.0),),
+                                SizedBox(
+                                  height: 8.0,
+                                ),
+                                Text(
+                                    snapshot.data![index].description,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18.0)),
+                                SizedBox(
+                                  height: 12.0,
+                                ),
+                                ElevatedButton(onPressed: () {},
+                                    child: Text('Участвовать', style: TextStyle(
+                                        fontWeight: FontWeight.w600),))
+                              ],
+                            ),
                           ),
-                          SizedBox(
-                            height: 2.0,
-                          ),
-                          Text('Соревнование по футболу', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),),
-                          SizedBox(
-                            height: 8.0,
-                          ),
-                          Text('Ждем всех по адресу Железнодорожная улица, 48 ', style: TextStyle(fontWeight: FontWeight.w500)),
-                          SizedBox(
-                            height: 12.0,
-                          ),
-                          ElevatedButton(onPressed: () {}, child: Text('Участвовать', style: TextStyle(fontWeight: FontWeight.w600),))
                         ],
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return SizedBox(
-                height: 16.0,
-              );
-            },
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      height: 16.0,
+                    );
+                  },
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            }
           ),
         ),
       ],
@@ -109,7 +131,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
   _updateByDate(date) {
     setState(() {
       _dateTime = date;
-      print(date);
     });
   }
 }

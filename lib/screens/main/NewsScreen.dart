@@ -18,6 +18,7 @@ class NewsScreen extends StatelessWidget {
               itemCount: snapshot.data!.length,
               itemBuilder: (BuildContext context, int index) {
                 return InkWell(
+                  borderRadius: BorderRadius.circular(10.0),
                   onTap: () {},
                   child: Ink(
                     decoration: BoxDecoration(
@@ -56,7 +57,7 @@ class NewsScreen extends StatelessWidget {
                                   Text(snapshot.data![index].sport.name,
                                       style: TextStyle(
                                           fontWeight: FontWeight.w300,
-                                          fontSize: 12.0)),
+                                          fontSize: 16.0)),
                                 ],
                               ),
                               SizedBox(
@@ -66,7 +67,7 @@ class NewsScreen extends StatelessWidget {
                                 snapshot.data![index].title,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 18.0),
+                                    fontSize: 22.0),
                               ),
                               SizedBox(
                                 height: 2.0,
@@ -76,14 +77,14 @@ class NewsScreen extends StatelessWidget {
                                     .format(snapshot.data![index].publicTime),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w300,
-                                    fontSize: 12.0),
+                                    fontSize: 16.0),
                               ),
                               SizedBox(
                                 height: 6.0,
                               ),
                               Text(snapshot.data![index].content,
                                   style:
-                                      TextStyle(fontWeight: FontWeight.w500)),
+                                      TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0)),
                             ],
                           ),
                         ),
@@ -99,7 +100,9 @@ class NewsScreen extends StatelessWidget {
               },
             );
           } else {
-            return Container();
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           }
         });
   }
