@@ -22,6 +22,13 @@ class UserModel {
     required this.type,
     required this.money,
   });
+
+  factory UserModel.fromMap(Map<String, dynamic> json) {
+    return UserModel(id: json["id"]);
+  }
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(id: json["id"]);
+  }
 }
 
 class UserSportModel {
