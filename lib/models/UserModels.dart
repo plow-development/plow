@@ -7,7 +7,6 @@ class UserModel {
   final String avatar;
   final String lastname;
   final DateTime birthday;
-  final String type;
   final int money;
 
   UserModel({
@@ -19,15 +18,13 @@ class UserModel {
     required this.avatar,
     required this.lastname,
     required this.birthday,
-    required this.type,
     required this.money,
   });
 
-  factory UserModel.fromMap(Map<String, dynamic> json) {
-    return UserModel(id: json["id"]);
-  }
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(id: json["id"]);
+    return UserModel(id: json["id"], firstname: json["firstname"], username: json["username"],
+      hashedPassword: json["hashedPassword"], email: json["email"], avatar: json["avatar"], lastname: json["lastname"],
+      birthday: json["birthday"], money: json["money"]);
   }
 }
 
@@ -40,6 +37,9 @@ class UserSportModel {
     required this.sportId,
 
   });
+  factory UserSportModel.fromJson(Map<String, dynamic> json) {
+    return UserSportModel(userId: json["userId"], sportId: json["sportId"]);
+  }
 }
 
 class TeamsUsersModel {
@@ -51,5 +51,8 @@ class TeamsUsersModel {
     required this.userId,
 
   });
+  factory TeamsUsersModel.fromJson(Map<String, dynamic> json) {
+    return TeamsUsersModel(teamId: json["teamId"], userId: json["userId"]);
+  }
 }
 

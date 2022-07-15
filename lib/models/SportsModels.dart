@@ -1,11 +1,17 @@
 class SportsModel {
   final int id;
   final String name;
-  final String desc;
+  final String description;
+  final String type;
 
   SportsModel({
     required this.id,
     required this.name,
-    required this.desc,
+    required this.description,
+    required this.type,
   });
+  factory SportsModel.fromJson(Map<String, dynamic> json) {
+    return SportsModel(id: json["id"], name: json["name"],
+        description: json["description"], type: json["type"]);
+  }
 }
