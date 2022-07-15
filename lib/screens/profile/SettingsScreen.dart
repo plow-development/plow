@@ -5,7 +5,10 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('loh');
+    return Center(
+        child: Text(
+      'Coming soon',
+      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0),
+    ));
   }
-
 }
