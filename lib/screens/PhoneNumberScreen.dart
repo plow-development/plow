@@ -43,7 +43,9 @@ class MyWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 70),
           child: TextField(
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(borderRadius: const BorderRadius.all(
+                Radius.circular(15.0),
+              ),),
             ),
             style: TextStyle(fontSize: 15, color: Colors.black),
           ),
@@ -59,11 +61,16 @@ class MyWidget extends StatelessWidget {
             height: 45.0,
             child: ElevatedButton(
                 style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                  ),
                   backgroundColor:
                   MaterialStateProperty.all<Color>(Color(0xff3F8FD2)),
                 ),
                 child: Text("Подтвердить",
-                    style: TextStyle(fontSize: 18, color: Colors.black)),
+                    style: TextStyle(fontSize: 18, color: Colors.white)),
                 onPressed: () {}),
           ),
         ),

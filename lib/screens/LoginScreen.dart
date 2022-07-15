@@ -26,7 +26,9 @@ class MyWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 70),
           child: TextField(
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(borderRadius: const BorderRadius.all(
+                Radius.circular(15.0),
+              ),),
               hintText: 'Введите логин',
             ),
             style: TextStyle(fontSize: 15, color: Colors.black),
@@ -40,7 +42,9 @@ class MyWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 70),
           child: TextField(
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(borderRadius: const BorderRadius.all(
+                Radius.circular(15.0),
+              ),),
 
               hintText: 'Введите пароль',
             ),
@@ -58,11 +62,14 @@ class MyWidget extends StatelessWidget {
             height: 45.0,
             child: ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor:
-                  MaterialStateProperty.all<Color>(Color(0xff3F8FD2)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                  ),
                 ),
                 child: Text("Вход",
-                    style: TextStyle(fontSize: 18, color: Colors.black)),
+                    style: TextStyle(fontSize: 18, color: Colors.white)),
                 onPressed: () {}),
           ),
         ),
