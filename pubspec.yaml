@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   salomon_bottom_bar: ^3.3.1
   yandex_mapkit: ^3.0.2
+  calendar_timeline: ^1.0.5
 
 dev_dependencies:
   flutter_test:
