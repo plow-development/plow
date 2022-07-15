@@ -78,7 +78,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     SizedBox(
                                       width: 4.0,
                                     ),
-                                    Text('Футбол', style: TextStyle(
+                                    Text(snapshot.data![index].sport.name, style: TextStyle(
                                         fontWeight: FontWeight.w300,
                                         fontSize: 16.0)),
                                   ],

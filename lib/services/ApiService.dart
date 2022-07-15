@@ -19,7 +19,7 @@ class ApiService {
 
     if (response.statusCode == 200) {
       List<EventsModel> _events = [];
-      List<dynamic> _json = json.decode(response.body);
+      List<dynamic> _json = json.decode(utf8.decode(response.body.codeUnits));
 
       for (var element in _json) {
         _events.add(EventsModel.fromJson(element));

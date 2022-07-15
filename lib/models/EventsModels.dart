@@ -23,13 +23,13 @@ class EventsModel {
 
   factory EventsModel.fromJson(Map<String, dynamic> json) {
     return EventsModel(
-        id: json["event_id"],
-        name: json["name"],
-        description: json["description"],
-        preview: json["preview"],
-        startTime: json["starttime"],
-        latitude: json["latitude"],
-        longitude: json["longitude"],
-        sport: SportsModel.fromJson(json["sports"]));
+        id: json["event"]["event_id"],
+        name: json["event"]["name"],
+        description: json["event"]["description"],
+        preview: json["event"]["preview"],
+        startTime: json["event"]["starttime"],
+        latitude: json["event"]["latitude"],
+        longitude: json["event"]["longitude"],
+        sport: SportsModel.fromJson(json["sport"]));
   }
 }

@@ -312,7 +312,7 @@ class _MainScreenState extends State<MainScreen> {
               bottom: bottom,
               title: Text(
                 title,
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 26.0),
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 26.0),
               ),
             ),
           ),
