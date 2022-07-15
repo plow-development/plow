@@ -3,8 +3,9 @@ class NewsModel {
   final String title;
   final String content;
   final String preview;
-  final String publicTime;
+  final DateTime publicTime;
   final int authorId;
+  final int sportId;
 
   NewsModel({
     required this.id,
@@ -13,10 +14,11 @@ class NewsModel {
     required this.preview,
     required this.publicTime,
     required this.authorId,
+    required this.sportId,
   });
   factory NewsModel.fromJson(Map<String, dynamic> json) {
-    return NewsModel(id: json["id"], title: json["title"],
+    return NewsModel(id: json["news_id"], title: json["title"],
         content: json["content"], preview: json["preview"],
-        publicTime: json["publicTime"], authorId: json["authorId"]);
+        publicTime: DateTime.parse(json["publictime"]), authorId: json["author_id"], sportId: json["sport_id"]);
   }
 }

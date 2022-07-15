@@ -15,9 +15,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ApiService().getAllEvents().then((value) => {
-      print(value[0].name)
-    });
     return Column(
       children: <Widget>[
         Container(
@@ -100,7 +97,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             },
             separatorBuilder: (BuildContext context, int index) {
               return SizedBox(
-                height: 8.0,
+                height: 16.0,
               );
             },
           ),
