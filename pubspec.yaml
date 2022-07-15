@@ -37,6 +37,7 @@ dependencies:
   salomon_bottom_bar: ^3.3.1
   yandex_mapkit: ^3.0.2
   calendar_timeline: ^1.0.5
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
