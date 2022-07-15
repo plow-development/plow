@@ -1,7 +1,7 @@
 class TeamsModel {
   final int id;
   final String name;
-  final String masterId;
+  final int masterId;
   final int sportId;
 
   TeamsModel({
@@ -10,4 +10,8 @@ class TeamsModel {
     required this.masterId,
     required this.sportId,
   });
+  factory TeamsModel.fromJson(Map<String, dynamic> json) {
+    return TeamsModel(id: json["id"], name: json["name"],
+      masterId: json["masterId"], sportId: json["sportId"]);
+  }
 }

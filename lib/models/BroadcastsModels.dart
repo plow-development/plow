@@ -14,4 +14,9 @@ class BroadcastsModel {
     required this.eventId,
     required this.link,
   });
+  factory BroadcastsModel.fromJson(Map<String, dynamic> json) {
+    return BroadcastsModel(id: json["id"], title: json["title"],
+        description: json["description"], preview: json["preview"],
+        eventId: json["eventId"], link: json["link"]);
+  }
 }
