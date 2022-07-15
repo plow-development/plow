@@ -13,8 +13,8 @@ class EventsModel {
     required this.longitude,
   });
   factory EventsModel.fromJson(Map<String, dynamic> json) {
-    return EventsModel(id: json["id"], name: json["name"],
-        startTime: json["startTime"], latitude: json["latitude"],
+    return EventsModel(id: json["event_id"], name: json["name"],
+        startTime: json["starttime"], latitude: json["latitude"],
         longitude: json["longitude"]);
   }
 }

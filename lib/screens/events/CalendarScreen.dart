@@ -1,5 +1,6 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:plow/services/ApiService.dart';
 import 'package:plow/services/ColorService.dart';
 
 class CalendarScreen extends StatefulWidget {
@@ -14,6 +15,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ApiService().getAllEvents().then((value) => {
+      print(value[0].name)
+    });
     return Column(
       children: <Widget>[
         Container(
