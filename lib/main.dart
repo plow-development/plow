@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:plow/screens/events/CalendarScreen.dart';
 import 'package:plow/screens/events/MapScreen.dart';
 import 'package:plow/screens/main/LiveScreen.dart';
@@ -27,7 +28,8 @@ enum Screens {
   stat,
 }
 
-void main() {
+Future<void> main() async {
+  Intl.defaultLocale = 'ru';
   runApp(const MyApp());
 }
 
@@ -40,6 +42,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: ColorService().primaryColor),
+      locale: Locale('ru'),
       home: MainScreen(),
     );
   }
@@ -56,6 +59,11 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   Screens _screen = Screens.news;
   bool _isMap = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
